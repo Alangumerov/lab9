@@ -1,6 +1,5 @@
 import pygame
 import random
-
 pygame.init()
 WIDTH, HEIGHT = 400, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -15,7 +14,7 @@ bg_image = pygame.transform.scale(bg_image, (WIDTH, HEIGHT))
 player = pygame.image.load('images/Player.png')
 enemy = pygame.image.load('images/Enemy.png')
 coin=pygame.image.load('images/images.png')
-diamond=pygame.image.load('images/8273957.png')
+diamond=pygame.image.load('images/3121806.png')
 coin=pygame.transform.scale(coin, (30,30))
 diamond=pygame.transform.scale(diamond, (30,30))
 player_x = 190
