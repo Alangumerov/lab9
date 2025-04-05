@@ -2,6 +2,7 @@
 import pygame
 import random
 pygame.init()
+#экран
 WIDTH, HEIGHT = 600,400
 YELLOW=(243, 242, 17)
 WHITE=(255,255,255)
@@ -26,6 +27,7 @@ coin_timer=pygame.time.get_ticks()
 clock=pygame.time.Clock()
 running=True
 while running:
+    #управление
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             running=False
@@ -41,11 +43,13 @@ while running:
     new_head=(snake[0][0]+ snake_d[0], snake[0][1] + snake_d[1])
     snake.insert(0,new_head)
     if not game_over_flag:
+     #столкновение с едой 
      if food.colliderect(pygame.Rect(*new_head, CELL_SIZE, CELL_SIZE)):
         food=pygame.Rect(random.randrange(0, WIDTH, CELL_SIZE), random.randrange(0, HEIGHT, CELL_SIZE), CELL_SIZE, CELL_SIZE)
         score+=1
      else:
         snake.pop()
+     #столкновение с монетой
      if coin and coin.colliderect(pygame.Rect(*new_head, CELL_SIZE, CELL_SIZE)):
          score+=2
          coin=None
@@ -54,10 +58,12 @@ while running:
      if not coin :
          coin=pygame.Rect(random.randrange(0,WIDTH, CELL_SIZE), random.randrange(0, HEIGHT, CELL_SIZE), CELL_SIZE, CELL_SIZE)
          coin_timer=pygame.time.get_ticks()
+    #переход на следующий уровень
      if score%3==0 and score !=last_level_score:
          level+=1
          snake_speed+=2
          last_level_score=score
+     #условие если вышли за экран
      if (new_head in snake[1:] or
        new_head[0]<0 or new_head[0]>= WIDTH or
        new_head[1]<0 or new_head[1]>=HEIGHT):
@@ -69,6 +75,7 @@ while running:
     level_text = level_font.render(str(level), True, (0, 0, 1))
     screen.blit(score_text, (500, 10))
     screen.blit(level_text, (30,10))
+    #прориссовка
     if not game_over_flag:
       for segment in snake:
         pygame.draw.rect(screen, YELLOW, (*segment, CELL_SIZE, CELL_SIZE))
